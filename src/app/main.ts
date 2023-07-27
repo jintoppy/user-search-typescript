@@ -1,12 +1,13 @@
 import "./main.css";
 import { UserListComponent } from "./components/user-list";
 import { SearchComponent } from "./components/search";
+import { UserDetailsComponent } from "./components/user-details";
 import { AppService } from "./service";
-import { AppData } from "./types";
+import { AppData, User } from "./types";
 
 const containerEl = <HTMLDivElement>document.querySelector(".container");
 
-const userListComponent = new UserListComponent();
+const userDetailsComponent = new UserDetailsComponent();
 const appService = new AppService();
 
 let appData: AppData = {
@@ -15,7 +16,7 @@ let appData: AppData = {
   selectedUser: null,
 };
 
-const handleSearch = async (searchText: string) => {
+const handleSearch = (searchText: string) => {
   const filteredUsers = appData.users.filter((user) =>
     user.name.toLowerCase().includes(searchText.toLowerCase())
   );
@@ -23,10 +24,20 @@ const handleSearch = async (searchText: string) => {
   render();
 };
 
+const handleUserDetailClick = (selectedUser: User) => {
+  appData.selectedUser = selectedUser;
+  render();
+};
+
+const abc = "1lkj";
+
 const searchComponent = new SearchComponent(handleSearch);
+searchComponent.name = abc;
+const userListComponent = new UserListComponent(handleUserDetailClick);
 
 const render = () => {
   searchComponent.render();
+  userDetailsComponent.render(appData.selectedUser);
   userListComponent.render(appData.filteredUsers);
 };
 

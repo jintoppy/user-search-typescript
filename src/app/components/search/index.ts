@@ -2,6 +2,8 @@ import { IComponent } from "../../types";
 import "./search.css";
 
 export class SearchComponent implements IComponent {
+  name: string;
+
   constructor(public onSearch: (searchText: string) => void) {}
 
   render(selector: string = "#search-container") {

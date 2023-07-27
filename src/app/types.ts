@@ -2,6 +2,7 @@ export interface User {
   name: string;
   age: number;
   avatar: string;
+  id: string;
 }
 
 export type AppData = {
